@@ -15,18 +15,23 @@
             <img src="images/left-icon.png" alt="education" />
             <h1>Lear<span>nova</span></h1>
         </div>
+        <div class="menu-toggle" onclick="toggleMenu()">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
         <div class="right">
-            <ul>
-                <li><a href="#">Home</a></li>
-                <li><a href="#">Notes</a></li>
-                <li><a href="#">Courses</a></li>
-                <li><a href="#cntc">Contact</a></li>
-                <li><a href="#">Tutors</a></li>
+            <ul id="navMenu">
+                <li><a href="#" onclick="closeMenu()">Home</a></li>
+                <li><a href="#courses" onclick="closeMenu()">Notes</a></li>
+                <li><a href="#courses" onclick="closeMenu()">Courses</a></li>
+                <li><a href="#cntc" onclick="closeMenu()">Contact</a></li>
+                <li><a href="#" onclick="closeMenu()">Tutors</a></li>
             </ul>
         </div>
     </header>
 
-    <div class="course-des">
+    <div class="course-des" id="courses">
         <h1>Our Courses</h1>
     </div>
 
@@ -150,6 +155,51 @@
             </div>
         </div>
     </footer>
+
+    <script>
+        // Mobile Menu Toggle
+        function toggleMenu() {
+            const navMenu = document.getElementById('navMenu');
+            const menuToggle = document.querySelector('.menu-toggle');
+            navMenu.classList.toggle('active');
+            menuToggle.classList.toggle('active');
+        }
+
+        function closeMenu() {
+            const navMenu = document.getElementById('navMenu');
+            const menuToggle = document.querySelector('.menu-toggle');
+            navMenu.classList.remove('active');
+            menuToggle.classList.remove('active');
+        }
+
+        // Close menu when clicking outside
+        document.addEventListener('click', function (event) {
+            const navMenu = document.getElementById('navMenu');
+            const menuToggle = document.querySelector('.menu-toggle');
+            const isClickInsideNav = navMenu.contains(event.target);
+            const isClickOnToggle = menuToggle.contains(event.target);
+
+            if (!isClickInsideNav && !isClickOnToggle && navMenu.classList.contains('active')) {
+                closeMenu();
+            }
+        });
+
+        // Header scroll effect
+        let lastScroll = 0;
+        const header = document.querySelector('header');
+
+        window.addEventListener('scroll', () => {
+            const currentScroll = window.pageYOffset;
+
+            if (currentScroll > 50) {
+                header.classList.add('scrolled');
+            } else {
+                header.classList.remove('scrolled');
+            }
+
+            lastScroll = currentScroll;
+        });
+    </script>
 
 </body>
 
